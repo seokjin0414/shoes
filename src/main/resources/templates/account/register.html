@@ -1,0 +1,65 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <link th:href="@{/css/signin.css}" rel="stylesheet">
+
+    <title>Resister</title>
+</head>
+
+<body class="text-center">
+
+</svg>
+
+<form class="form-signin needs-validation" th:action="@{/account/register}" th:object="${user}" method="post" novalidate>
+    <a th:href="@{/}"><img class="mb-4" src="https://content.api.news/v3/images/bin/c975cfd9a5a86b924415c10dbd52d814?width=320" alt=""
+         width="100" height="81"></a>
+    <h1 class="h3 mb-3 fw-normal">sign up</h1>
+    <div class="form-floating position-relative">
+        <input type="email" class="form-control" th:classappend="${#fields.hasErrors('userId')} ? 'is-invalid'" th:field="*{userId}" placeholder="id@example.com" required>
+        <label th:for="userId">ID(Email)</label>
+        <div class="invalid-feedback" th:if="${#fields.hasErrors('userId')}" th:errors="*{userId}">
+            Id error
+        </div>
+    </div>
+    <div class="form-floating">
+        <input type="password" class="form-control" th:classappend="${#fields.hasErrors('userPw')} ? 'is-invalid'" th:value="*{userPw}" name="userPw" id="userPw" placeholder="Password" required>
+        <label for="userPw">Password</label>
+        <div class="invalid-feedback" th:if="${#fields.hasErrors('userPw')}" th:errors="*{userPw}">
+            Pw error
+        </div>
+    </div>
+    <div class="form-floating">
+        <input type="text" class="form-control" th:classappend="${#fields.hasErrors('userName')} ? 'is-invalid'" th:field="*{userName}" placeholder="Name" required>
+        <label th:for="userName">Name</label>
+        <div class="invalid-feedback" th:if="${#fields.hasErrors('userName')}" th:errors="*{userName}">
+            Name error
+        </div>
+    </div>
+    <div class="form-floating">
+        <input type="text" class="form-control" th:classappend="${#fields.hasErrors('userGender')} ? 'is-invalid'" th:field="*{userGender}" placeholder="Gender" required>
+        <label th:for="userGender">Gender</label>
+        <div class="invalid-feedback" th:if="${#fields.hasErrors('userGender')}" th:errors="*{userGender}">
+            Gender error
+        </div>
+    </div>
+    <div class="form-floating">
+        <input type="date" class="form-control" th:classappend="${#fields.hasErrors('userBirth')} ? 'is-invalid'" th:field="*{userBirth}" placeholder="Birth" required>
+        <label th:for="userId">Birth</label>
+        <div class="invalid-feedback" th:if="${#fields.hasErrors('userBirth')}" th:errors="*{userBirth}">
+            Please choose a unique and valid username.
+        </div>
+    </div>
+
+    <button class="w-100 btn btn-lg btn-primary" type="submit">Sign up</button>
+</form>
+
+<footer th:replace="fragments/common :: footer"></footer>
+
+</body>
+</html>

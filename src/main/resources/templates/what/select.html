@@ -1,0 +1,59 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:replace="fragments/common :: head('What Select')">
+</head>
+
+<body>
+<nav th:replace="fragments/common :: navTop('what')">
+</nav>
+
+<main class="container">
+    <div class="bg-light p-5 rounded">
+        <br>
+        <form th:action="@{/what/select}" th:object="${what}" method="post" enctype="multipart/form-data">
+            <h1 class="title">Select Shoes</h1>
+            <hr>
+            <div class="row">
+                <div class="col-3"></div>
+                <div class="p-5 contents col-6">
+                    <div th:if="${#fields.hasErrors('whatFileName')}"
+                         class="alert alert-danger alert-dismissible fade show" role="alert">
+                        <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Danger:">
+                            <use xlink:href="#exclamation-triangle-fill"/>
+                        </svg>
+                        <strong>Warning!</strong>
+                        <br>
+                        <span th:errors="*{whatFileName}"></span>
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                    <div class="upload-box" onclick="clikFile()">
+                        <input type="text" class="form-control" th:field="*{whatFileName}" hidden>
+                        <div id="drop-file" class="drag-file">
+                            <img src="https://img.icons8.com/pastel-glyph/2x/image-file.png" alt="img ikon"
+                                 class="image">
+                            <p class="message">Drag or click to select an image</p>
+                            <p>(Beta version can determine the type)</p>
+                            <p>Jordan 1 low, mid, high</p>
+                            <img src="" alt="Preview" class="preview">
+                        </div>
+                        <label class="file-label" id="clikFile" for="chooseFile" hidden>Choose Image</label>
+                        <input class="file" id="chooseFile" type="file" name="whatFile"
+                               onchange="dropFile.handleFiles(this.files)"
+                               accept="image/*">
+                    </div>
+                </div>
+                <br>
+            </div>
+            <div class="d-grid gap-2 col-3 mx-auto">
+                <button class="btn btn-lg btn-outline-success" id="findWhat" type="submit">Find</button>
+            </div>
+        </form>
+    </div>
+</main>
+
+<footer th:replace="fragments/common :: footer"></footer>
+<script th:replace="fragments/common :: selectFile"></script>
+
+</body>
+
+</html>

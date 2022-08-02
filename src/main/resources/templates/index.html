@@ -1,0 +1,46 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:replace="fragments/common :: head('What Shoes')">
+</head>
+
+<body>
+<nav th:replace="fragments/common :: navTop('home')">
+</nav>
+
+<main class="container">
+    <div class="bg-light p-5 rounded">
+        <br>
+        <br>
+        <h1>What Shoes Home</h1>
+        <p class="lead">This example is a home.</p>
+        <div>
+            <a class="btn btn-lg btn-primary" href="#" th:href="@{/what/select}" role="button">View What &raquo;</a>
+            <a class="btn btn-lg btn-primary" href="#" th:href="@{/shoes/list}" role="button">View Shoes &raquo;</a>
+
+        </div>
+    </div>
+    <div class="row row-cols-1 row-cols-md-4 g-4">
+        <div class="col">
+            <iframe src="https://www.instagram.com/p/Cf1nfjbOPV7/embed" width="320" height="400" frameborder="0"
+                    scrolling="no"
+                    allowtransparency="true"></iframe>
+        </div>
+        <div class="col">
+            <iframe src="https://www.instagram.com/p/CdqB7txMZav/embed" width="320" height="400" frameborder="0"
+                    scrolling="no" allowtransparency="true"></iframe>
+        </div>
+        <div class="col">
+            <iframe src="https://www.instagram.com/p/Cf6nfcMO81m/embed" width="320" height="400" frameborder="0"
+                    scrolling="no" allowtransparency="true"></iframe>
+        </div>
+        <div>
+            <iframe src="https://www.instagram.com/p/CfwBJxQt5JH/embed" width="320" height="400" frameborder="0"
+                    scrolling="no" allowtransparency="true"></iframe>
+        </div>
+    </div>
+</main>
+
+<footer th:replace="fragments/common :: footer"></footer>
+
+</body>
+</html>

@@ -1,0 +1,88 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:replace="fragments/common :: head('Shoes List')">
+</head>
+
+<body>
+<nav th:replace="fragments/common :: navTop('shoesList')">
+</nav>
+
+
+<main class="container">
+    <div class="bg-light rounded">
+        <br>
+        <br>
+        <br>
+
+        <h1>Shoes List</h1>
+        <div>총 건수 : <span th:text="${shoesData.totalElements}"></span></div>
+
+        <div class="row row-cols-1 row-cols-md-4 g-4">
+            <th:block th:each="sd : ${shoesData}">
+                <a th:href="@{/shoes/detail(shoesId=${sd.shoesId})}" id="customLink" >
+                    <div class="col">
+
+                        <div class="card-group h-100">
+                            <img class="card-img-top" th:if="${sd.shoesfiles.size() > 0}"
+                                 th:src="'https://c-shin.s3.ap-northeast-2.amazonaws.com/whatShoes/shoes/' + ${sd.shoesId} + '/' +  ${sd.shoesfiles[0].shoesFileName}"
+                                 alt="" height="200">
+                            <img class="card-img-top" th:unless="${sd.shoesfiles.size() > 0}"
+                                 th:src="'https://c-shin.s3.ap-northeast-2.amazonaws.com/whatShoes/tool/noimg.png'"
+                                 alt="" height="200">
+                            <div class="card-body">
+                                <p class="card-text text-center" th:text="${sd.shoesName1}"></p>
+                                <p class="card-text"><small class="text-muted">Retail Price</small></p>
+                                <h5 class="card-title" th:text="'$' + ${sd.shoesPrice}"></h5>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </th:block>
+        </div>
+
+        <!--        <table class="table table-striped">-->
+        <!--            <thead>-->
+        <!--            <tr>-->
+        <!--                <th scope="col">ID</th>-->
+        <!--                <th scope="col">Style</th>-->
+        <!--                <th scope="col">Brand</th>-->
+        <!--                <th scope="col">Model</th>-->
+        <!--                <th scope="col">Type</th>-->
+        <!--                <th scope="col">Name1</th>-->
+        <!--                <th scope="col">Name2</th>-->
+        <!--                <th scope="col">Colorway</th>-->
+        <!--                <th scope="col">Price</th>-->
+        <!--                <th scope="col">Release</th>-->
+        <!--                <th>User</th>-->
+        <!--            </tr>-->
+        <!--            </thead>-->
+        <!--            <tbody>-->
+        <!--            <tr th:each="sd : ${shoesData}">-->
+        <!--                <td th:text="${sd.shoesId}"></td>-->
+        <!--                <td><a th:text="${sd.shoesStyle}" th:href="@{/shoes/form(shoesId=${sd.shoesId})}"></a></td>-->
+        <!--                <td th:text="${sd.brandId}"></td>-->
+        <!--                <td th:text="${sd.modelId}"></td>-->
+        <!--                <td th:text="${sd.shoesSizeType}"></td>-->
+        <!--                <td th:text="${sd.shoesName1}"></td>-->
+        <!--                <td th:text="${sd.shoesName2}"></td>-->
+        <!--                <td th:text="${sd.shoesColorway}"></td>-->
+        <!--                <td th:text="${sd.shoesPrice}"></td>-->
+        <!--                <td th:text="${#dates.format(sd.shoesRelease, 'yyyy-MM-dd')}"></td>-->
+        <!--&lt;!&ndash;            필요 값 받아오기                &ndash;&gt;-->
+        <!--                <td th:text="${sd.user.userName}"}></td>-->
+        <!--            </tr>-->
+        <!--            </tbody>-->
+        <!--        </table>-->
+        <br>
+        <div class="d-md-flex justify-content-md-end" sec:authorize="hasAnyRole('ROLE_ADMIN')">
+            <a type="button" class="btn btn-outline-success" th:href="@{/shoes/form}">Add</a>
+        </div>
+        <nav th:replace="fragments/common :: navShoesPage('')">
+        </nav>
+    </div>
+</main>
+
+<footer th:replace="fragments/common :: footer"></footer>
+
+</body>
+</html>

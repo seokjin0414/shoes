@@ -1,0 +1,43 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:replace="fragments/common :: head('What Result')">
+</head>
+
+<body>
+<nav th:replace="fragments/common :: navTop('what')">
+</nav>
+
+<main class="container">
+    <div th:object="${what}" class="bg-light p-5 rounded">
+        <br>
+        <h1 class="title">What Result</h1>
+        <hr>
+            <div class="row">
+                <div class="form-group col-6">
+                    <div class="col-md-8 upload-box">
+                        <div id="drop-file" class="drag-file">
+                            <img th:src="'https://c-shin.s3.ap-northeast-2.amazonaws.com/whatShoes/what/' + *{whatId} + '/' +  *{whatFileName}" alt=""
+                                 class="previewResult">
+                        </div>
+                    </div>
+                </div>
+                <div class="part-detail col-6">
+                    <div class="form-group">
+                        <h2>Result</h2>
+                        <h3 th:text="': ' + *{whatResult}"></h3>
+                    </div>
+                    <hr>
+                    <div class="form-group">
+                        <label for="detail">Similar Shoes</label>
+                        <textarea rows="10" cols="50" id="detail" class="form-control" name="detail" readonly>aaaaaaaaaaaaaaaaaaasasdasdasdasd</textarea>
+                    </div>
+                </div>
+            </div>
+    </div>
+</main>
+
+<footer th:replace="fragments/common :: footer"></footer>
+
+</body>
+
+</html>

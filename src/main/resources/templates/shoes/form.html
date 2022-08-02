@@ -1,0 +1,176 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:replace="fragments/common :: head('Shoes Form')">
+</head>
+
+<body>
+<nav th:replace="fragments/common :: navTop('shoesList')">
+</nav>
+
+<main>
+    <div class="container bg-light">
+        <br>
+        <br>
+        <br>
+        <h1>Shoes Form</h1>
+        <hr>
+        <form action="#" th:action="@{/shoes/form}" th:object="${shoes}" method="post" enctype="multipart/form-data">
+            <div class="row">
+                <div class="contents form-group col-5">
+                    <div class="upload-box" onclick="clikFile()">
+                        <div id="drop-file" class="drag-file">
+                            <img th:unless="*{shoesfiles.size() > 0}"
+                                 src="https://img.icons8.com/pastel-glyph/2x/image-file.png" alt="img ikon"
+                                 class="image">
+                            <p class="message">Drag or click to select an image</p>
+                            <img th:if="*{shoesfiles.size() > 0}"
+                                 th:src="'https://c-shin.s3.ap-northeast-2.amazonaws.com/whatShoes/shoes/' + *{shoesId} + '/' + *{shoesfiles[0].getShoesFileName()}"
+                                 alt="" class="previewResult">
+                            <img src="" alt="Preview" class="preview">
+                        </div>
+                        <label class="file-label" id="clikFile" for="chooseFile" hidden>Choose Image</label>
+                        <input class="file" id="chooseFile" type="file" name="shoesImg"
+                               onchange="dropFile.handleFiles(this.files)"
+                               accept="image/*">
+                    </div>
+                </div>
+                <div class="part-detail col-7">
+                    <h4>Infomation</h4>
+                    <br>
+                    <input type="hidden" th:field="*{shoesId}">
+                    <div class="row">
+                        <div class="form-floating col-4">
+                            <input type="text" class="form-control" id="shoesStyle"
+                                   th:classappend="${#fields.hasErrors('shoesStyle')} ? 'is-invalid'"
+                                   th:field="*{shoesStyle}"
+                                   placeholder="style">
+                            <label for="shoesStyle" class="form-label">Style Number</label>
+                            <div class="invalid-feedback" th:if="${#fields.hasErrors('shoesStyle')}"
+                                 th:errors="*{shoesStyle}">Style error
+                            </div>
+                        </div>
+                        <div class="form-floating col-2">
+                            <input type="text" class="form-control" id="shoesSizeType"
+                                   th:classappend="${#fields.hasErrors('shoesSizeType')} ? 'is-invalid'"
+                                   th:field="*{shoesSizeType}"
+                                   placeholder="type">
+                            <label for="shoesSizeType" class="form-label">Size Type</label>
+                            <div class="invalid-feedback" th:if="${#fields.hasErrors('shoesSizeType')}"
+                                 th:errors="*{shoesSizeType}">shoesSizeType error
+                            </div>
+                        </div>
+                        <div class="form-floating col-6">
+                            <input type="text" class="form-control" id="shoesColorway"
+                                   th:classappend="${#fields.hasErrors('shoesColorway')} ? 'is-invalid'"
+                                   th:field="*{shoesColorway}"
+                                   placeholder="colorway">
+                            <label for="shoesColorway" class="form-label">Colorway</label>
+                            <div class="invalid-feedback" th:if="${#fields.hasErrors('shoesColorway')}"
+                                 th:errors="*{shoesColorway}">shoesColorway error
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row">
+                        <div class="form-floating col-6">
+                            <input type="text" class="form-control" id="brandId"
+                                   th:classappend="${#fields.hasErrors('brandId')} ? 'is-invalid'" th:field="*{brandId}"
+                                   placeholder="brand">
+                            <label for="brandId" class="form-label">Brand</label>
+                            <div class="invalid-feedback" th:if="${#fields.hasErrors('brandId')}"
+                                 th:errors="*{brandId}">
+                                Brand error
+                            </div>
+                        </div>
+                        <div class="form-floating col-6">
+                            <input type="text" class="form-control" id="modelId"
+                                   th:classappend="${#fields.hasErrors('modelId')} ? 'is-invalid'"
+                                   th:field="*{modelId}"
+                                   placeholder="model">
+                            <label for="modelId" class="form-label">Model</label>
+                            <div class="invalid-feedback" th:if="${#fields.hasErrors('modelId')}"
+                                 th:errors="*{modelId}">modelId error
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row">
+                        <div class="form-floating col-6">
+                            <input type="text" class="form-control" id="shoesName1"
+                                   th:classappend="${#fields.hasErrors('shoesName1')} ? 'is-invalid'"
+                                   th:field="*{shoesName1}"
+                                   placeholder="name">
+                            <label for="shoesName1" class="form-label">Name1</label>
+                            <div class="invalid-feedback" th:if="${#fields.hasErrors('shoesName1')}"
+                                 th:errors="*{shoesName1}">shoesName1 error
+                            </div>
+                        </div>
+                        <div class="form-floating col-6">
+                            <input type="text" class="form-control" id="shoesName2"
+                                   th:classappend="${#fields.hasErrors('shoesName2')} ? 'is-invalid'"
+                                   th:field="*{shoesName2}"
+                                   placeholder="sub name">
+                            <label for="shoesName2" class="form-label">Name2</label>
+                            <div class="invalid-feedback" th:if="${#fields.hasErrors('shoesName2')}"
+                                 th:errors="*{shoesName2}">shoesName2 error2
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row">
+                        <div class="form-floating col-2">
+                            <input type="text" class="form-control" id="shoesPrice"
+                                   th:classappend="${#fields.hasErrors('shoesPrice')} ? 'is-invalid'"
+                                   th:field="*{shoesPrice}"
+                                   placeholder="$">
+                            <label for="shoesPrice" class="form-label">Price</label>
+                            <div class="invalid-feedback" th:if="${#fields.hasErrors('shoesPrice')}"
+                                 th:errors="*{shoesPrice}">shoesPrice error
+                            </div>
+                        </div>
+                        <div class="form-floating col-10">
+                            <input type="date" class="form-control" id="shoesRelease"
+                                   th:classappend="${#fields.hasErrors('shoesRelease')} ? 'is-invalid'"
+                                   th:field="*{shoesRelease}"
+                                   placeholder="yyyy-MM-dd">
+                            <label for="shoesRelease" class="form-label">Release</label>
+                            <div class="invalid-feedback" th:if="${#fields.hasErrors('shoesRelease')}"
+                                 th:errors="*{shoesRelease}">shoesRelease error
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="form-floating">
+                        <input type="text" class="form-control" id="shoesUrl"
+                               th:classappend="${#fields.hasErrors('shoesUrl')} ? 'is-invalid'"
+                               th:field="*{shoesUrl}"
+                               placeholder="url">
+                        <label for="shoesUrl" class="form-label">URL</label>
+                        <div class="invalid-feedback" th:if="${#fields.hasErrors('shoesUrl')}"
+                             th:errors="*{shoesUrl}">shoesUrl error
+                        </div>
+                    </div>
+                    <br>
+                </div>
+                <hr>
+                <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                    <a type="button" class="btn btn-outline-danger" th:href="@{/shoes/list}">Cancle</a>
+                    <button type="button" class="btn btn-outline-danger" th:if="*{shoesId}"
+                            sec:authorize="hasRole('ROLE_ADMIN')"
+                            th:onclick="|deleteShoes(*{shoesId})|">Delete
+                    </button>
+                    <button type="submit" sec:authorize="hasRole('ROLE_ADMIN')" class="btn btn-outline-success">Add
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+</main>
+
+<footer th:replace="fragments/common :: footer"></footer>
+<script th:replace="fragments/common :: selectFile"></script>
+<script th:replace="fragments/common :: deleteShoes"></script>
+
+
+</body>
+</html>

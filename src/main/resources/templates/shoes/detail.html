@@ -1,0 +1,131 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:replace="fragments/common :: head('Shoes Detail')">
+</head>
+
+<body>
+<nav th:replace="fragments/common :: navTop('shoesList')">
+</nav>
+
+<main class="container">
+    <div class="container bg-light" th:object="${shoes}">
+        <br>
+        <br>
+        <br>
+        <li><a>Shoes</a><span> / </span><a th:text="*{brandId}"></a><span> / </span><a th:text="*{modelId}"></a></li>
+        <br>
+        <h4 th:text="*{shoesName1}"></h4>
+        <br>
+        <div class="row">
+            <div class="form-group col-5">
+                <div class="col-md-8 upload-box">
+                    <div id="drop-file" class="drag-file">
+                        <img th:if="*{shoesfiles.size() > 0}"
+                             th:src="'https://c-shin.s3.ap-northeast-2.amazonaws.com/whatShoes/shoes/' + *{shoesId} + '/' + *{shoesfiles[0].getShoesFileName()}"
+                             alt="" class="previewResult">
+                        <img th:unless="*{shoesfiles.size() > 0}"
+                             src="https://c-shin.s3.ap-northeast-2.amazonaws.com/whatShoes/tool/noimg.png" alt=""
+                             class="previewResult">
+                    </div>
+                </div>
+            </div>
+            <div class="part-detail col-5">
+                <h5>Details</h5>
+                <p type="hidden" th:field="*{shoesId}"/>
+                <div class="row">
+                    <div class="col-4">
+                        <span>Style</span>
+                        <strong><p th:text="*{shoesStyle}"/></strong>
+                    </div>
+                    <div class="col-3">
+                        <span>Size Type</span>
+                        <strong><p th:text="*{shoesSizeType}"></p></strong>
+                    </div>
+                    <div class="col-4">
+                        <span>Colorway</span>
+                        <strong><p th:text="*{shoesColorway}"></p></strong>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-3">
+                        <span>Retail Price</span>
+                        <strong><p th:text="'US$' + *{shoesPrice}"></p></strong>
+                    </div>
+                    <div class="col-3">
+                        <span>Release</span>
+                        <strong><p th:text="*{#dates.format(shoesRelease, 'yyyy-MM-dd')}"></p></strong>
+                    </div>
+                    <div class="col-6">
+                        <span>URL</span>
+                        <strong><a th:href="@{*{shoesUrl}}"><p th:text="*{shoesUrl}"></p></a></strong>
+                    </div>
+                </div>
+                <hr>
+            </div>
+        </div>
+        <hr>
+
+        <div class="row" th:if="*{resales.size() > 0}">
+            <div class="col-5">
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th scope="col">Date</th>
+                        <th scope="col">Time</th>
+                        <th scope="col">Size</th>
+                        <th scope="col">Sale Price</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="rh : *{resales}">
+                        <td th:text="${#dates.format(rh.resaleDate, 'yyyy-MM-dd')}"></td>
+                        <td th:text="${#dates.format(rh.resaleDate, 'HH:mm')}"></td>
+                        <td th:text="${rh.resaleShoesSize}"></td>
+                        <td th:text="'US$' + ${rh.resalePrice}"></td>
+                    </tr>
+                    </tbody>
+                </table>
+
+            </div>
+            <div class="col-7"></div>
+        </div>
+
+        <div class="row" th:unless="*{resales.size() > 0}">
+            <div class="col-5">
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th scope="col">Date</th>
+                        <th scope="col">Time</th>
+                        <th scope="col">Size</th>
+                        <th scope="col">Sale Price</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+                    <h3># No transaction history</h3>
+
+            </div>
+            <div class="col-7"></div>
+        </div>
+
+        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+            <a type="button" class="btn btn-outline-secondary" th:href="@{/shoes/list}">Cancle</a>
+            <a th:href="@{/shoes/form(shoesId=*{shoesId})}">
+                <button type="button" class="btn btn-outline-success" sec:authorize="hasRole('ROLE_ADMIN')">
+                    Edit
+                </button>
+            </a>
+<!--            <button type="button" class="btn btn-outline-danger" th:if="*{shoesId}"-->
+<!--                    sec:authorize="hasRole('ROLE_ADMIN')">Update resale-->
+<!--            </button>-->
+        </div>
+    </div>
+</main>
+
+<footer th:replace="fragments/common :: footer"></footer>
+<!--<script th:replace="fragments/common :: getResale"></script>-->
+
+</body>
+</html>
