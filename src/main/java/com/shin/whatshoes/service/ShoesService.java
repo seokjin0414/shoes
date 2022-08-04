@@ -44,6 +44,17 @@ public class ShoesService {
         return shoesfileRepository.save(shoesfile);
     }
 
+    public Resale getRecentResale(Long shoesId) {
+        Resale r = new Resale();
+        if (shoesRepository.findByShoesId(shoesId).getResales().size() > 0) {
+            r = shoesRepository.findByShoesId(shoesId).getResales().get(0);
+            return r;
+        } else {
+            return r;
+        }
+
+    }
+
     public void saveResale(List<List<String>> history, Long shoesId) throws ParseException {
         log.info("@@@@@@ start saveResale");
         Shoes shoes = shoesRepository.findByShoesId(shoesId);
@@ -57,8 +68,13 @@ public class ShoesService {
                 t2 = t2.substring(3);
             } else {
                 if ((t2.length() == 8)) {
-                    String a = String.valueOf(12 + Integer.parseInt(t2.substring(3, 5)));
-                    t2 = a + t2.substring(5, 8);
+                    if (t2.substring(3, 5).equals("12")) {
+                        String a = String.valueOf(Integer.parseInt(t2.substring(3, 5)));
+                        t2 = a + t2.substring(5, 8);
+                    } else {
+                        String a = String.valueOf(12 + Integer.parseInt(t2.substring(3, 5)));
+                        t2 = a + t2.substring(5, 8);
+                    }
                 } else {
                     String a = String.valueOf(12 + Integer.parseInt(t2.substring(3, 4)));
                     t2 = a + t2.substring(4, 7);

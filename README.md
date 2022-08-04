@@ -1,8 +1,8 @@
-# shoes
-<p>프로젝트명:what shoes</p> 
-<p>개발환경:Intellij, MySql, SpringBoot, JPA, Thymeleaf, Selenium </p>
-<p>OS 및 DB:macOS, maria DB <p>
-<p>사용언어:JAVA, Java Script, CSS, HTML, SQL, Python3</p> 
+# WHAT SHOES
+
+<p>*개발환경 : Intellij, MySql, SpringBoot, JPA, Thymeleaf, Selenium </p>
+<p>*OS 및 DB : macOS, maria DB <p>
+<p>*사용언어 : JAVA, Java Script, CSS, HTML, SQL, Python3</p> 
 
 shoes DB 구축, resale 내역 Selenium 이용하여 크롤링 Tensorflow, Keras 이용하여 이미지 모델 구축 shoes 이미지 판별
 

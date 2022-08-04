@@ -2,6 +2,7 @@ package com.shin.whatshoes.controller;
 
 
 
+import com.shin.whatshoes.model.Resale;
 import com.shin.whatshoes.model.Shoes;
 import com.shin.whatshoes.model.Shoesfile;
 import com.shin.whatshoes.repository.ShoesRepository;
@@ -57,6 +58,8 @@ public class ShoesController {
     public String showDetail(Model model, @RequestParam Long shoesId) {
             Shoes shoes = shoesRepository.findById(shoesId).orElse(null);
             model.addAttribute("shoes", shoes);
+            Resale r = shoesService.getRecentResale(shoesId);
+            log.info("@@@@@@@ RecentResale = " + r.getResaleId() + " @@@@@@@@ ");
         return "shoes/detail";
     }
 
